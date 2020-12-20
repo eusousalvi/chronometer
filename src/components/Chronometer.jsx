@@ -5,6 +5,7 @@ import objectSupport from 'dayjs/plugin/objectSupport';
 export default class Chronometer extends Component {
   constructor(props) {
     super(props);
+    this.setPartial = props.setPartial;
     this.state = {
       counter: 0,
       time: {
@@ -13,11 +14,13 @@ export default class Chronometer extends Component {
         second: 0,
         millisecond: 0,
       },
+      partial: '',
     };
     this.tick = this.tick.bind(this);
     this.stop = this.stop.bind(this);
     this.play = this.play.bind(this);
     this.clear = this.clear.bind(this);
+    this.partial = this.partial.bind(this);
     Dayjs.extend(objectSupport);
   }
 
@@ -56,6 +59,10 @@ export default class Chronometer extends Component {
     clearInterval(this.interval);
   }
 
+  partial() {
+    this.setPartial(this.timer);
+  }
+
   componentDidUpdate() {
     this.chrono = Dayjs(this.state.time).add({ ms: this.state.counter });
   }
@@ -77,13 +84,17 @@ export default class Chronometer extends Component {
         ? '0' + this.chrono.second()
         : this.chrono.second();
     const milli = this.chrono.millisecond();
-    const timer = `${hour}:${minute}:${second}:${milli}`;
+    this.timer = `${hour}:${minute}:${second}:${milli}`;
+
     return (
-      <div>
-        {timer} <button onClick={this.stop}>Stop</button>
-        <button onClick={this.play}>Play</button>
-        <button onClick={this.clear}>Clear</button>
-      </div>
+      <>
+        <div>
+          {this.timer} <button onClick={this.stop}>Stop</button>
+          <button onClick={this.play}>Play</button>
+          <button onClick={this.clear}>Clear</button>
+          <button onClick={this.partial}>Partial</button>
+        </div>
+      </>
     );
   }
 }

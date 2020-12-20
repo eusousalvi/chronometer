@@ -8,17 +8,19 @@ export default class Partial extends Component {
     };
   }
 
-  componentDidUpdate() {
-    this.setState((state) => ({
-      partials: [...this.state.partials, this.props],
-    }));
+  componentDidUpdate(previousProps) {
+    if (previousProps.partial !== this.props.partial) {
+      this.setState((state) => ({
+        partials: [...this.state.partials, this.props.partial],
+      }));
+    }
   }
 
   render() {
     return (
       <div>
-        {this.state.partials.map((partial) => (
-          <div>{partial}</div>
+        {this.state.partials.map((partial, index) => (
+          <div key={index}>{partial}</div>
         ))}
       </div>
     );
