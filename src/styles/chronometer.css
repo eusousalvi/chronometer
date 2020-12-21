@@ -48,7 +48,6 @@
   left: 0;
   padding: 1rem 0;
   width: 100%;
-  outline: none;
 }
 
 .chrono__button {
@@ -56,6 +55,7 @@
   cursor: pointer;
   background-color: transparent;
   color: var(--purple);
+  outline: none;
 }
 
 .chrono__button:hover {

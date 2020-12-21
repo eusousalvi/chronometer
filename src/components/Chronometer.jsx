@@ -42,25 +42,25 @@ export default class Chronometer extends Component {
     clearInterval(this.interval);
     this.interval = null;
 
-    this.setState((state) => ({
+    this.setState({
       stoped: true,
-    }));
+    });
   }
 
   play() {
     this.interval = setInterval(() => this.tick(), 10);
-    this.setState((state) => ({
+    this.setState({
       stoped: false,
-    }));
+    });
   }
 
   stop() {
     this.clearPartials();
     this.chrono = Dayjs(this.options).add({ ms: 0 });
-    this.setState((state) => ({
+    this.setState({
       counter: 0,
       stoped: true,
-    }));
+    });
     clearInterval(this.interval);
     this.interval = null;
   }

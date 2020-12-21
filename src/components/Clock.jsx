@@ -13,7 +13,7 @@ export default class Clock extends Component {
 
   tick() {
     this.timer = Dayjs().format('HH:mm:ss');
-    this.setState((state) => ({ hour: this.timer }));
+    this.setState({ hour: this.timer });
   }
 
   componentDidMount() {

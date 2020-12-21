@@ -11,15 +11,17 @@ export default class Partial extends Component {
 
   componentDidUpdate(previousProps) {
     if (previousProps.partials !== this.props.partials) {
-      this.setState((state) => ({
+      this.setState({
         partials: [...this.props.partials],
-      }));
+      });
     }
   }
 
   render() {
     return (
-      <div className="partial">
+      <div
+        className={`partial ${this.state.partials.length > 0 ? 'active' : ''}`}
+      >
         <div className="partial__title">
           <h2>partials</h2>
         </div>
