@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dayjs from 'dayjs';
+import '../styles/clock.css';
 
 export default class Clock extends Component {
   constructor() {
@@ -24,6 +25,6 @@ export default class Clock extends Component {
   }
 
   render() {
-    return <div>{this.state.hour}</div>;
+    return <div className="clock">{this.state.hour}</div>;
   }
 }

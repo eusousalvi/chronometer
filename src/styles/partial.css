@@ -1,0 +1,26 @@
+.partial {
+  position: relative;
+  width: 16.5rem;
+  max-height: 8rem;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.partial__title {
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  font-size: 1.125rem;
+  width: 100%;
+  background-color: var(--purple);
+  text-align: center;
+}
+
+.partial > ol {
+  overflow-y: scroll;
+  max-height: 75%;
+  text-align: center;
+  border-left: 2px;
+  border-right: 2px;
+  border-color: var(--purple);
+  transition: all ease-in-out 1s;
+}

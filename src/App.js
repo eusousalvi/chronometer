@@ -1,8 +1,8 @@
 import React from 'react';
 import Chronometer from './components/Chronometer';
-import Clock from './components/Clock';
 import Partial from './components/Partial';
-
+import './App.css';
+import Header from './components/Header';
 class App extends React.Component {
   constructor() {
     super();
@@ -27,13 +27,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Chronometer
-          setPartial={this.setPartial}
-          clearPartials={this.clearPartials}
-        />
+      <div className="app">
         <Partial partials={this.state.partials} />
-        <Clock />
+        <section className="container">
+          <Header />
+          <Chronometer
+            setPartial={this.setPartial}
+            clearPartials={this.clearPartials}
+          />
+        </section>
       </div>
     );
   }

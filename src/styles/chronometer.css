@@ -1,0 +1,66 @@
+.chrono {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 53rem;
+  height: 14rem;
+  background-color: var(--purple);
+  left: -4rem;
+  top: 2.8rem;
+  box-shadow: 0.2rem 0.2rem 0.3rem rgba(0, 0, 0, 0.25);
+  padding: 1rem 4rem;
+}
+
+.chrono__timer {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.chrono__counter {
+  font-size: 4.5rem;
+}
+
+.chrono__milli {
+  font-size: 3rem;
+}
+
+.chrono__counter,
+.chrono__milli {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chrono__counter > p,
+.chrono__milli > p {
+  font-size: 1.5rem;
+}
+
+.chrono__buttons {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+.chrono__button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--purple);
+}
+
+.chrono__button:hover {
+  color: #fff;
+}
+
+.chrono__button:disabled {
+  color: var(--disabled);
+}

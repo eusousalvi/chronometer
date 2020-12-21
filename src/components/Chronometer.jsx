@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Dayjs from 'dayjs';
 import objectSupport from 'dayjs/plugin/objectSupport';
+import '../styles/chronometer.css';
+import { FaPlayCircle } from 'react-icons/fa';
+import { FaPauseCircle } from 'react-icons/fa';
+import { FaStopCircle } from 'react-icons/fa';
+import { FaPlusCircle } from 'react-icons/fa';
 
 export default class Chronometer extends Component {
   constructor(props) {
@@ -9,20 +14,21 @@ export default class Chronometer extends Component {
     this.clearPartials = props.clearPartials;
     this.state = {
       counter: 0,
-      time: {
-        hour: 0,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-      },
       stoped: true,
     };
+    this.options = {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    };
     this.tick = this.tick.bind(this);
-    this.stop = this.stop.bind(this);
+    this.pause = this.pause.bind(this);
     this.play = this.play.bind(this);
-    this.clear = this.clear.bind(this);
+    this.stop = this.stop.bind(this);
     this.partial = this.partial.bind(this);
     Dayjs.extend(objectSupport);
+    this.chrono = Dayjs(this.options).add({ ms: this.state.counter });
   }
 
   tick() {
@@ -32,19 +38,13 @@ export default class Chronometer extends Component {
     }));
   }
 
-  stop() {
-    this.setState((state) => ({
-      time: {
-        hour: this.chrono.hour(),
-        minute: this.chrono.minute(),
-        second: this.chrono.second(),
-        millisecond: this.chrono.millisecond(),
-      },
-      stoped: true,
-    }));
-
+  pause() {
     clearInterval(this.interval);
     this.interval = null;
+
+    this.setState((state) => ({
+      stoped: true,
+    }));
   }
 
   play() {
@@ -54,17 +54,15 @@ export default class Chronometer extends Component {
     }));
   }
 
-  clear() {
+  stop() {
+    this.clearPartials();
+    this.chrono = Dayjs(this.options).add({ ms: 0 });
     this.setState((state) => ({
       counter: 0,
-      time: {
-        hour: 0,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-      },
+      stoped: true,
     }));
-    this.clearPartials();
+    clearInterval(this.interval);
+    this.interval = null;
   }
 
   partial() {
@@ -72,7 +70,7 @@ export default class Chronometer extends Component {
   }
 
   componentDidUpdate() {
-    this.chrono = Dayjs(this.state.time).add({ ms: this.state.counter });
+    this.chrono = Dayjs(this.options).add({ ms: this.state.counter });
   }
 
   componentWillUnmount() {
@@ -80,35 +78,68 @@ export default class Chronometer extends Component {
   }
 
   render() {
-    this.chrono = Dayjs(this.state.time).add({ ms: this.state.counter });
-    const hour =
-      this.chrono.hour() < 9 ? '0' + this.chrono.hour() : this.chrono.hour();
-    const minute =
-      this.chrono.minute() < 9
+    this.hour =
+      this.chrono.hour() < 10 ? '0' + this.chrono.hour() : this.chrono.hour();
+    this.minute =
+      this.chrono.minute() < 10
         ? '0' + this.chrono.minute()
         : this.chrono.minute();
-    const second =
-      this.chrono.second() < 9
+    this.second =
+      this.chrono.second() < 10
         ? '0' + this.chrono.second()
         : this.chrono.second();
-    const milli =
-      this.chrono.millisecond() < 9
+    this.milli =
+      this.chrono.millisecond() < 10
+        ? '00' + this.chrono.millisecond()
+        : this.chrono.millisecond() < 100
         ? '0' + this.chrono.millisecond()
         : this.chrono.millisecond();
-    this.timer = `${hour}:${minute}:${second}:${milli}`;
+
+    this.timer = `${this.hour}:${this.minute}:${this.second}:${this.milli}`;
 
     return (
       <>
-        <div>
-          {this.timer}
-          <button disabled={this.state.stoped} onClick={this.stop}>
-            Stop
+        <div className="chrono">
+          <div className="chrono__timer">
+            <div className="chrono__counter">
+              {this.hour}
+              <p>hour</p>
+            </div>
+            <div className="chrono__counter">
+              {this.minute}
+              <p>minutes</p>
+            </div>
+            <div className="chrono__counter">
+              {this.second}
+              <p>seconds</p>
+            </div>
+            <div className="chrono__milli">
+              {this.milli}
+              <p>milliseconds</p>
+            </div>
+          </div>
+        </div>
+        <div className="chrono__buttons">
+          <button
+            className="chrono__button"
+            disabled={!this.state.stoped}
+            onClick={this.play}
+          >
+            {<FaPlayCircle size={25} />}
           </button>
-          <button disabled={!this.state.stoped} onClick={this.play}>
-            Play
+          <button
+            className="chrono__button"
+            disabled={this.state.stoped}
+            onClick={this.pause}
+          >
+            {<FaPauseCircle size={25} />}
           </button>
-          <button onClick={this.clear}>Clear</button>
-          <button onClick={this.partial}>Partial</button>
+          <button className="chrono__button" onClick={this.stop}>
+            {<FaStopCircle size={25} />}
+          </button>
+          <button className="chrono__button" onClick={this.partial}>
+            {<FaPlusCircle size={25} />}
+          </button>
         </div>
       </>
     );
