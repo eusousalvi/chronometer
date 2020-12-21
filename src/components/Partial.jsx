@@ -9,9 +9,9 @@ export default class Partial extends Component {
   }
 
   componentDidUpdate(previousProps) {
-    if (previousProps.partial !== this.props.partial) {
+    if (previousProps.partials !== this.props.partials) {
       this.setState((state) => ({
-        partials: [...this.state.partials, this.props.partial],
+        partials: [...this.props.partials],
       }));
     }
   }

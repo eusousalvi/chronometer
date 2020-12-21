@@ -6,6 +6,7 @@ export default class Chronometer extends Component {
   constructor(props) {
     super(props);
     this.setPartial = props.setPartial;
+    this.clearPartials = props.clearPartials;
     this.state = {
       counter: 0,
       time: {
@@ -14,7 +15,7 @@ export default class Chronometer extends Component {
         second: 0,
         millisecond: 0,
       },
-      partial: '',
+      stoped: true,
     };
     this.tick = this.tick.bind(this);
     this.stop = this.stop.bind(this);
@@ -27,6 +28,7 @@ export default class Chronometer extends Component {
   tick() {
     this.setState((state) => ({
       counter: state.counter + 10,
+      stoped: false,
     }));
   }
 
@@ -38,12 +40,18 @@ export default class Chronometer extends Component {
         second: this.chrono.second(),
         millisecond: this.chrono.millisecond(),
       },
+      stoped: true,
     }));
+
     clearInterval(this.interval);
+    this.interval = null;
   }
 
   play() {
     this.interval = setInterval(() => this.tick(), 10);
+    this.setState((state) => ({
+      stoped: false,
+    }));
   }
 
   clear() {
@@ -56,7 +64,7 @@ export default class Chronometer extends Component {
         millisecond: 0,
       },
     }));
-    clearInterval(this.interval);
+    this.clearPartials();
   }
 
   partial() {
@@ -83,14 +91,22 @@ export default class Chronometer extends Component {
       this.chrono.second() < 9
         ? '0' + this.chrono.second()
         : this.chrono.second();
-    const milli = this.chrono.millisecond();
+    const milli =
+      this.chrono.millisecond() < 9
+        ? '0' + this.chrono.millisecond()
+        : this.chrono.millisecond();
     this.timer = `${hour}:${minute}:${second}:${milli}`;
 
     return (
       <>
         <div>
-          {this.timer} <button onClick={this.stop}>Stop</button>
-          <button onClick={this.play}>Play</button>
+          {this.timer}
+          <button disabled={this.state.stoped} onClick={this.stop}>
+            Stop
+          </button>
+          <button disabled={!this.state.stoped} onClick={this.play}>
+            Play
+          </button>
           <button onClick={this.clear}>Clear</button>
           <button onClick={this.partial}>Partial</button>
         </div>
