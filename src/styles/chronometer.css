@@ -15,7 +15,7 @@
 .chrono__timer {
   display: flex;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
   width: 100%;
 }
 
