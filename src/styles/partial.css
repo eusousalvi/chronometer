@@ -1,0 +1,41 @@
+.partial {
+  position: relative;
+  width: 16.5rem;
+  height: 2.4rem;
+  justify-content: center;
+  flex-direction: column;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  border-color: var(--purple);
+  transition: height 1s ease-in-out;
+}
+
+.partial.active {
+  height: 8rem;
+}
+
+.partial__title {
+  width: 100%;
+  background-color: var(--purple);
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.partial__title > h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.partial > ol {
+  overflow-y: scroll;
+  max-height: 72%;
+  text-align: center;
+  width: 100%;
+}
+
+.partial > ol > li {
+  list-style-position: inside;
+  font-family: 'Roboto', sans-serif;
+}

@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@700&family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --purple: #3c0f57;
+  --light-purple: #814ba3;
+  --disabled: #b97ddd;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  position: relative;
+  width: 45rem;
+  height: 20.625rem;
+  background-color: var(--light-purple);
+  padding: 0.5rem 1rem;
+}
