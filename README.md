@@ -2,7 +2,7 @@
 
 ## DETAILS
 
-- It was make using classes to consolidate legacy knowledge;
+- It was made using classes to consolidate legacy knowledge;
 - Git flow;
 - DayJS;
 - BEM CSS;
