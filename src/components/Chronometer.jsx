@@ -31,7 +31,7 @@ export default class Chronometer extends Component {
     this.chrono = Dayjs(this.options).add({ ms: this.state.counter });
   }
 
-  const tick = () => {
+  tick = () => {
     if (this.state.timer) {
       this.setState((state) => ({
         counter: state.counter - 10,
