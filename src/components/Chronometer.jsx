@@ -27,24 +27,11 @@ export default class Chronometer extends Component {
       second: 0,
       millisecond: 0,
     };
-    this.tick = this.tick.bind(this);
-    this.pause = this.pause.bind(this);
-    this.play = this.play.bind(this);
-    this.stop = this.stop.bind(this);
-    this.partial = this.partial.bind(this);
-    this.toggleTimer = this.toggleTimer.bind(this);
-    this.addHour = this.addHour.bind(this);
-    this.removeHour = this.removeHour.bind(this);
-    this.addMinutes = this.addMinutes.bind(this);
-    this.removeMinutes = this.removeMinutes.bind(this);
-    this.addSeconds = this.addSeconds.bind(this);
-    this.removeSeconds = this.removeSeconds.bind(this);
-    this.chronoUpdate = this.chronoUpdate.bind(this);
     Dayjs.extend(objectSupport);
     this.chrono = Dayjs(this.options).add({ ms: this.state.counter });
   }
 
-  tick() {
+  const tick = () => {
     if (this.state.timer) {
       this.setState((state) => ({
         counter: state.counter - 10,
@@ -58,7 +45,7 @@ export default class Chronometer extends Component {
     }
   }
 
-  pause() {
+  const pause = () => {
     clearInterval(this.interval);
     this.interval = null;
 
@@ -67,11 +54,11 @@ export default class Chronometer extends Component {
     });
   }
 
-  play() {
+  const play = () => {
     this.interval = setInterval(() => this.tick(), 10);
   }
 
-  stop() {
+  const stop = () =>  {
     this.clearPartials();
     this.chrono = Dayjs(this.options).add({ ms: 0 });
     this.setState({
@@ -82,54 +69,54 @@ export default class Chronometer extends Component {
     this.interval = null;
   }
 
-  toggleTimer() {
+  const toggleTimer = () =>  {
     this.setState((state) => ({
       timer: !state.timer,
     }));
     this.stop();
   }
 
-  partial() {
+  const partial = () => {
     this.currentPartial = `${this.hour}:${this.minute}:${this.second}:${this.milli}`;
     this.setPartial(this.currentPartial);
   }
 
-  addHour() {
+  const addHour = () => {
     this.setState((state) => ({
       counter: state.counter + 3600000,
     }));
   }
 
-  removeHour() {
+  const removeHour = () => {
     this.setState((state) =>
       state.counter > 0 ? { counter: state.counter - 3600000 } : { counter: 0 },
     );
   }
 
-  addMinutes() {
+  const addMinutes = () => {
     this.setState((state) => ({
       counter: state.counter + 60000,
     }));
   }
 
-  removeMinutes() {
+  const removeMinutes = () => {
     this.setState((state) =>
       state.counter > 0 ? { counter: state.counter - 60000 } : { counter: 0 },
     );
   }
-  addSeconds() {
+  const addSeconds = () => {
     this.setState((state) => ({
       counter: state.counter + 1000,
     }));
   }
 
-  removeSeconds() {
+  const removeSeconds = () => {
     this.setState((state) =>
       state.counter > 0 ? { counter: state.counter - 1000 } : { counter: 0 },
     );
   }
 
-  chronoUpdate() {
+  const chronoUpdate = () => {
     this.chrono = Dayjs(this.options).add({ ms: this.state.counter });
     this.hour =
       this.chrono.hour() < 10 ? '0' + this.chrono.hour() : this.chrono.hour();
