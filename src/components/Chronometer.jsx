@@ -45,7 +45,7 @@ export default class Chronometer extends Component {
     }
   }
 
-  const pause = () => {
+  pause = () => {
     clearInterval(this.interval);
     this.interval = null;
 
@@ -54,11 +54,11 @@ export default class Chronometer extends Component {
     });
   }
 
-  const play = () => {
+  play = () => {
     this.interval = setInterval(() => this.tick(), 10);
   }
 
-  const stop = () =>  {
+  stop = () =>  {
     this.clearPartials();
     this.chrono = Dayjs(this.options).add({ ms: 0 });
     this.setState({
@@ -69,54 +69,54 @@ export default class Chronometer extends Component {
     this.interval = null;
   }
 
-  const toggleTimer = () =>  {
+  toggleTimer = () =>  {
     this.setState((state) => ({
       timer: !state.timer,
     }));
     this.stop();
   }
 
-  const partial = () => {
+  partial = () => {
     this.currentPartial = `${this.hour}:${this.minute}:${this.second}:${this.milli}`;
     this.setPartial(this.currentPartial);
   }
 
-  const addHour = () => {
+  addHour = () => {
     this.setState((state) => ({
       counter: state.counter + 3600000,
     }));
   }
 
-  const removeHour = () => {
+  removeHour = () => {
     this.setState((state) =>
       state.counter > 0 ? { counter: state.counter - 3600000 } : { counter: 0 },
     );
   }
 
-  const addMinutes = () => {
+  addMinutes = () => {
     this.setState((state) => ({
       counter: state.counter + 60000,
     }));
   }
 
-  const removeMinutes = () => {
+  removeMinutes = () => {
     this.setState((state) =>
       state.counter > 0 ? { counter: state.counter - 60000 } : { counter: 0 },
     );
   }
-  const addSeconds = () => {
+  addSeconds = () => {
     this.setState((state) => ({
       counter: state.counter + 1000,
     }));
   }
 
-  const removeSeconds = () => {
+  removeSeconds = () => {
     this.setState((state) =>
       state.counter > 0 ? { counter: state.counter - 1000 } : { counter: 0 },
     );
   }
 
-  const chronoUpdate = () => {
+  chronoUpdate = () => {
     this.chrono = Dayjs(this.options).add({ ms: this.state.counter });
     this.hour =
       this.chrono.hour() < 10 ? '0' + this.chrono.hour() : this.chrono.hour();
